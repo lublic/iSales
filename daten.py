@@ -18,17 +18,17 @@ def speichern(datei, key, value):
 
 
 def aktivitaet_speichern(aktivitaet):
-    datei_name = "aktivitaeten.json"
+    datei_name = "umsatz.json"
     zeitpunkt = datetime.now()
     speichern(datei_name, zeitpunkt, aktivitaet)
     return zeitpunkt, aktivitaet
 
 
-def aktivitaeten_laden():
-    datei_name = "aktivitaeten.json"
+def umsatz_laden():
+    umsatz = "umsatz.json"
 
     try:
-        with open(datei_name) as open_file:
+        with open(umsatz) as open_file:
             datei_inhalt = json.load(open_file)
     except FileNotFoundError:
         datei_inhalt = {}

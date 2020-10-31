@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iSales | Datenausgabe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+<!-- HEADER -->
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a href="/input">Dateneingabe</a>
+        <a class="active" href="/output">Datenausgabe</a>
+    </div>
+    <div>
+        <form method="POST">
+              <h3>Filter:</h3>
+              <label for="jahr">Jahr:</label>
+              <select id="jahr" name="jahr">
+                {% for jahr in filter_list_jahr %}
+                <option value="{{ jahr[0] }}" {{ jahr[1] }}>{{ jahr[0] }}</option>
+                {% endfor %}
+              </select>
+              <label for="lieferant">Lieferant:</label>
+              <select id="lieferant" name="lieferant">
+                {% for lieferant in filter_list_lieferant %}
+                <option value="{{ lieferant[0] }}" {{ lieferant[1] }}>{{ lieferant[0] }}</option>
+                {% endfor %}
+              </select>
+              <label for="kunde">Kunde:</label>
+              <select id="kunde" name="kunde">
+                {% for kunde in filter_list_kunde %}
+                <option value="{{ kunde[0] }}" {{ kunde[1] }}>{{ kunde[0] }}</option>
+                {% endfor %}
+              </select>
+              <input type="submit">
+              <hr/>
+        </form>
+    </div>
+    <div class="data">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Jahr</th>
+                <th>Lieferant</th>
+                <th>Kunde</th>
+                <th>Umsatz</th>
+            </tr>
+            {% for key, value in revenues.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value.jahr }}</td>
+                <td>{{ value.lieferant }}</td>
+                <td>{{ value.kunde }}</td>
+                <td>{{ "CHF {:,.2f}".format(value.umsatz).replace(",","'") }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+</body>
+</html>

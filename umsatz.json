@@ -1,0 +1,28 @@
+{
+  "1001" : {
+    "lieferant" : "Swisscom",
+    "kunde" : "Stadler Rail AG",
+    "umsatz" : 120653,
+    "jahr" : "2018"
+  },
+  "1002" : {
+    "lieferant" : "Swisscom",
+    "kunde" : "Georg Fischer Management AG",
+    "umsatz" : 800659,
+    "jahr" : "2018"
+
+  },
+  "1003" : {
+    "lieferant" : "AGOM",
+    "kunde" : "Georg Fischer Management AG",
+    "umsatz" : 800659,
+    "jahr" : "2018"
+
+  },
+  "1004" : {
+    "lieferant" : "Jungheinrich",
+    "kunde" : "Stadler Rail AG",
+    "umsatz" : 845015,
+    "jahr" : "2019"
+  }
+}
