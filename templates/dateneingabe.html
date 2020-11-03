@@ -13,29 +13,29 @@
         <a href="/output">Datenausgabe</a>
     </div>
     <div>
-        <form method="POST">
+        <form method="Post">
               <h3>Umsatz hinzufügen:</h3>
-              <label for="jahr">Jahr:</label>
-              <select id="jahr" name="jahr">
-                {% for jahr in filter_list_jahr %}
+              <label for="year_list">Jahr:</label>
+              <select id="year_list" name="year_list">
+                {% for jahr in year_list %}
                 <option value="{{ jahr }}">{{ jahr }}</option>
                 {% endfor %}
               </select>
-              <label for="lieferant">Lieferant:</label>
-              <select id="lieferant" name="lieferant">
-                {% for lieferant in filter_list_lieferant %}
+              <label for="lif_list">Lieferant:</label>
+              <select id="lif_list" name="lif_list">
+                {% for lieferant in lif_list %}
                 <option value="{{ lieferant }}">{{ lieferant }}</option>
                 {% endfor %}
               </select>
-              <label for="kunde">Kunde:</label>
-              <select id="kunde" name="kunde">
-                {% for kunde in filter_list_kunde %}
+              <label for="kund_list">Kunde:</label>
+              <select id="kund_list" name="kund_list">
+                {% for kunde in kund_list %}
                 <option value="{{ kunde }}">{{ kunde }}</option>
                 {% endfor %}
               </select>
+              <input type="number" name="eingabe_umsatz" placeholder="Umsatz eingeben">
               <input type="submit">
               <hr/>
         </form>
-    </div>
 </body>
 </html>

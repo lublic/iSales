@@ -1,27 +1,5 @@
-from datetime import datetime
 import json
-
-
-def speichern(datei, key, value):
-    try:
-        with open(datei) as open_file:
-            datei_inhalt = json.load(open_file)
-    except FileNotFoundError:
-        datei_inhalt = {}
-
-    datei_inhalt[str(key)] = value
-
-    # print(datei_inhalt)
-
-    with open(datei, "w") as open_file:
-        json.dump(datei_inhalt, open_file)
-
-
-def aktivitaet_speichern(aktivitaet):
-    datei_name = "umsatz.json"
-    zeitpunkt = datetime.now()
-    speichern(datei_name, zeitpunkt, aktivitaet)
-    return zeitpunkt, aktivitaet
+import uuid
 
 
 def umsatz_laden():
@@ -34,3 +12,51 @@ def umsatz_laden():
         datei_inhalt = {}
 
     return datei_inhalt
+
+def lieferanten_laden():
+    lieferanten = "lieferanten.json"
+
+    try:
+        with open(lieferanten) as open_file:
+            datei_inhalt = json.load(open_file)
+    except FileNotFoundError:
+        datei_inhalt = {}
+
+    return datei_inhalt
+
+def kunden_laden():
+    kunden = "kunden.json"
+
+    try:
+        with open(kunden) as open_file:
+            datei_inhalt = json.load(open_file)
+    except FileNotFoundError:
+        datei_inhalt = {}
+
+    return datei_inhalt
+
+def jahre_laden():
+    jahre = "jahre.json"
+
+    try:
+        with open(jahre) as open_file:
+            datei_inhalt = json.load(open_file)
+    except FileNotFoundError:
+        datei_inhalt = {}
+
+    return datei_inhalt
+
+def umsatzspeichern(datei, lieferant, kunde, umsatz, jahr):
+    try:
+        with open(datei) as open_file:
+            datei_inhalt = json.load(open_file)
+    except FileNotFoundError:
+        datei_inhalt = {}
+
+    id = uuid.uuid1()
+
+    datei_inhalt[str(id)] = {'lieferant' : lieferant, 'kunde' : kunde, 'umsatz' : umsatz, 'jahr' : jahr}
+
+
+    with open(datei, "w") as open_file:
+        json.dump(datei_inhalt, open_file)

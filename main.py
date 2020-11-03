@@ -40,9 +40,33 @@ def get_revenue():
 
     return render_template('datenausgabe.html', revenues=revenues_filtered, filter_list_jahr=filter_list_jahr, filter_list_lieferant=filter_list_lieferant, filter_list_kunde=filter_list_kunde)
 
-@app.route("/input")
+@app.route("/input", methods=['GET', 'POST'])
 def auflisten():
-    return render_template('dateneingabe.html')
+
+
+    # Jahres Liste laden
+    jahre = daten.jahre_laden()
+
+    # Lieferanten Liste laden
+    lieferanten = daten.lieferanten_laden()
+
+    # Kunden Liste laden
+    kunden = daten.kunden_laden()
+
+    year_list = filter.eingabefilter(jahre)
+    lif_list = filter.eingabefilter(lieferanten)
+    kund_list = filter.eingabefilter(kunden)
+
+    if request.method == 'POST':
+        eingabe_umsatz = request.form['eingabe_umsatz']
+        eingabe_jahr = request.form['year_list']
+        eingabe_lieferant = request.form['lif_list']
+        eingabe_kunde = request.form['kund_list']
+
+        daten.umsatzspeichern('umsatz.json', eingabe_lieferant, eingabe_kunde, int(eingabe_umsatz), eingabe_jahr)
+
+
+    return render_template('dateneingabe.html', year_list=year_list, lif_list=lif_list, kund_list=kund_list)
 
 
 if __name__ == "__main__":

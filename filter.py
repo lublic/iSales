@@ -19,10 +19,25 @@ def getFilterList(nestedDict, filter, selected_Filter):
         if l == selected_Filter:
             selected = "selected=selected"
         filterList[i] = [l, selected]
-        i+=1
+        i += 1
     return filterList
+
 
 def filter(revenues_filtered, filter, selected_filter):
     if selected_filter != "Alle":
-        revenues_filtered = {key: value for (key, value) in revenues_filtered.items() if selected_filter in value[filter]}
+        revenues_filtered = {key: value for (key, value) in revenues_filtered.items() if
+                             selected_filter in value[filter]}
     return revenues_filtered
+
+
+def eingabefilter(e_liste):
+    eingabelist = []
+    # Lade alle Items
+    for n in e_liste:
+        # Füge Item der Liste hinzu
+        eingabelist.append(n)
+        # Duplikate entfernen
+        eingabelist = list(e_liste)
+        # Liste sortieren
+        eingabelist.sort()
+    return eingabelist
