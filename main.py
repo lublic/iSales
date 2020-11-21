@@ -1,10 +1,13 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import flash
 import daten
 import filter
 
 app = Flask("iSales")
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 
 @app.route('/')
 def home():
@@ -53,20 +56,45 @@ def auflisten():
     # Kunden Liste laden
     kunden = daten.kunden_laden()
 
-    year_list = filter.eingabefilter(jahre)
-    lif_list = filter.eingabefilter(lieferanten)
-    kund_list = filter.eingabefilter(kunden)
+    year_list = filter.eingabefilter(jahre, 'jahre')
+    lif_list = filter.eingabefilter(lieferanten, 'lieferanten')
+    kund_list = filter.eingabefilter(kunden, 'kunden')
 
     if request.method == 'POST':
-        eingabe_umsatz = request.form['eingabe_umsatz']
-        eingabe_jahr = request.form['year_list']
-        eingabe_lieferant = request.form['lif_list']
-        eingabe_kunde = request.form['kund_list']
+        if request.form['submit'] == 'submit_umsatz':
+            eingabe_umsatz = request.form['eingabe_umsatz']
+            eingabe_jahr = request.form['year_list']
+            eingabe_lieferant = request.form['lif_list']
+            eingabe_kunde = request.form['kund_list']
 
-        daten.umsatzspeichern('umsatz.json', eingabe_lieferant, eingabe_kunde, int(eingabe_umsatz), eingabe_jahr)
+            daten.umsatzspeichern('umsatz.json', eingabe_lieferant, eingabe_kunde, int(eingabe_umsatz), eingabe_jahr)
+
+        if request.form['submit'] == 'submit_kundlief':
+            eingabe_newkunde = request.form['eingabe_newkund']
+            eingabe_newlieferant = request.form['eingabe_newlief']
+
+            if eingabe_newkunde:
+                if any(eingabe_newkunde in s for s in kund_list):
+                    flash(u'Dieser Kunde existiert bereits', 'error')
+                else:
+                    daten.saveNewEntryToFile('kunden.json', 'kunden', eingabe_newkunde)
+                    kund_list.append(eingabe_newkunde)
+                    kund_list.sort()
+
+            if eingabe_newlieferant:
+                if any(eingabe_newlieferant in s for s in lif_list):
+                    flash(u'Dieser Lieferant existiert bereits', 'error')
+                else:
+                    daten.saveNewEntryToFile('lieferanten.json', 'lieferanten', eingabe_newlieferant)
+                    lif_list.append(eingabe_newlieferant)
+                    ßlif_list.sort()
+
 
 
     return render_template('dateneingabe.html', year_list=year_list, lif_list=lif_list, kund_list=kund_list)
+
+
+
 
 
 if __name__ == "__main__":

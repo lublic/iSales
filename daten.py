@@ -60,3 +60,18 @@ def umsatzspeichern(datei, lieferant, kunde, umsatz, jahr):
 
     with open(datei, "w") as open_file:
         json.dump(datei_inhalt, open_file)
+
+
+def saveNewEntryToFile(datei, list, name):
+    try:
+        with open(datei) as open_file:
+            datei_inhalt = json.load(open_file)
+    except FileNotFoundError:
+        datei_inhalt = {}
+
+
+    datei_inhalt[list].append(name)
+
+
+    with open(datei, "w") as open_file:
+        json.dump(datei_inhalt, open_file)

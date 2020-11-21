@@ -6,10 +6,10 @@ def getFilterList(nestedDict, filter, selected_Filter):
     for k, v in nestedDict.items():
         # Füge Item der Liste hinzu
         filterList.append(v[filter])
-        # Duplikate entfernen
-        filterList = list(dict.fromkeys(filterList))
-        # Liste sortieren
-        filterList.sort()
+    # Duplikate entfernen
+    filterList = list(dict.fromkeys(filterList))
+    # Liste sortieren
+    filterList.sort()
     # "Alle" in Dropdown hinzufügen
     filterList.insert(0, "Alle")
     # Durch Filterliste gehen und das von User ausgwählte Dropdown selektieren
@@ -30,14 +30,14 @@ def filter(revenues_filtered, filter, selected_filter):
     return revenues_filtered
 
 
-def eingabefilter(e_liste):
+def eingabefilter(e_liste, inlist):
     eingabelist = []
     # Lade alle Items
-    for n in e_liste:
+    for v in e_liste.get(inlist):
         # Füge Item der Liste hinzu
-        eingabelist.append(n)
-        # Duplikate entfernen
-        eingabelist = list(e_liste)
-        # Liste sortieren
-        eingabelist.sort()
+        eingabelist.append(v)
+    # Duplikate entfernen
+    eingabelist = list(dict.fromkeys(eingabelist))
+    # Liste sortieren
+    eingabelist.sort()
     return eingabelist

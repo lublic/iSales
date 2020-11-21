@@ -13,7 +13,7 @@
         <a href="/output">Datenausgabe</a>
     </div>
     <div>
-        <form method="Post">
+        <form action="{{ url_for('auflisten')}}" method="Post">
               <h3>Umsatz hinzufügen:</h3>
               <label for="year_list">Jahr:</label>
               <select id="year_list" name="year_list">
@@ -34,8 +34,29 @@
                 {% endfor %}
               </select>
               <input type="number" name="eingabe_umsatz" placeholder="Umsatz eingeben">
-              <input type="submit">
+              <input type="submit" value="submit_umsatz" name="submit" >
               <hr/>
         </form>
+    </div>
+
+    <div>
+        <form action="{{ url_for('auflisten')}}" method="Post">
+            <h3>Neuer Kunde oder Lieferant hinzufügen:</h3>
+
+            <input type="text" name="eingabe_newkund" placeholder="Kunde eingeben">
+            <input type="text" name="eingabe_newlief" placeholder="Lieferant eingeben">
+            <input type="submit" value="submit_kundlief" name="submit" >
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                      <li class="red">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            <hr/>
+        </form>
+    </div>
 </body>
 </html>
