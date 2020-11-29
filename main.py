@@ -56,6 +56,9 @@ def auflisten():
     # Kunden Liste laden
     kunden = daten.kunden_laden()
 
+    # Umsatz laden
+    revenues = daten.umsatz_laden()
+
     year_list = filter.eingabefilter(jahre, 'jahre')
     lif_list = filter.eingabefilter(lieferanten, 'lieferanten')
     kund_list = filter.eingabefilter(kunden, 'kunden')
@@ -89,7 +92,15 @@ def auflisten():
                     lif_list.append(eingabe_newlieferant)
                     ßlif_list.sort()
 
+        if request.form['submit'] == 'submit_deleteumsatz':
+            eingabe_id = request.form['eingabe_id']
 
+            if eingabe_id in revenues:
+                del revenues[eingabe_id]
+            else:
+                flash(u'Diese ID ist nicht vorhanden', 'error')
+
+            print(revenues)
 
     return render_template('dateneingabe.html', year_list=year_list, lif_list=lif_list, kund_list=kund_list)
 

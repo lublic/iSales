@@ -3,27 +3,27 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.topnav {
+.navigation {
   overflow: hidden;
-  background-color: #333;
+  background-color: #5E676D;
 }
 
-.topnav a {
+.navigation a {
   float: left;
-  color: #f2f2f2;
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
 }
 
-.topnav a:hover {
+.navigation a:hover {
   background-color: #ddd;
   color: black;
 }
 
-.topnav a.active {
-  background-color: #4CAF50;
+.navigation a.active {
+  background-color: #46BD9E;
   color: white;
 }
 
@@ -40,4 +40,78 @@ th, td {
 
 .red {
     color: red;
+}
+
+.footer {
+    width: 100%;
+    height: 45px;
+    position: fixed;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+    background-color: #5E676D;
+}
+
+.footer p {
+    font-size: 16px;
+    color: white;
+}
+
+.home {
+      display: table;
+      border-spacing: 16px;
+      width: 100%;
+   }
+
+.col {
+      display: table-cell;
+      box-sizing: border-box;
+      cell-spacing: 8px;
+      padding: 0.5em;
+      vertical-align: top
+   }
+
+#einleitung {
+    text-align: center;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 18px;
+    border-color: #5E676D;
+    background-color: rgba(94,103,109,0.3);
+}
+
+#logo img {
+    width: 80%;
+    float: right;
+    border-radius: 18px;
+}
+
+.dateneingabe {
+    display: table;
+    border-spacing: 16px;
+    width: 100%;
+}
+
+#umsatzhinzufügen {
+    text-align: center;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 18px;
+    border-color: #5E676D;
+}
+
+#newkunderorlieferant {
+    text-align: center;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 18px;
+    border-color: #5E676D;
+}
+
+#umsatzlöschen {
+    text-align: center;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 18px;
+    border-color: #5E676D;
 }
