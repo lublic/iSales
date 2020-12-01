@@ -1,63 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>iSales | Datenausgabe</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-</head>
+<!-- Header -->
+{% include "header.html" %}
 <body>
-<!-- HEADER -->
-    <div class="navigation">
-        <a href="/">Home</a>
-        <a href="/input">Dateneingabe</a>
-        <a class="active" href="/output">Datenausgabe</a>
-    </div>
-    <div>
+<!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">iSales</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/input">Dateneingabe</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/output">Datenausgabe</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="shadow-lg mt-3 mb-3 ml-3 mr-3 pt-4 pb-4 pl-2 pr-2 bg-white text-left">
         <form method="POST">
-              <h3>Filter:</h3>
-              <label for="jahr">Jahr:</label>
-              <select id="jahr" name="jahr">
-                {% for jahr in filter_list_jahr %}
-                <option value="{{ jahr[0] }}" {{ jahr[1] }}>{{ jahr[0] }}</option>
-                {% endfor %}
-              </select>
-              <label for="lieferant">Lieferant:</label>
-              <select id="lieferant" name="lieferant">
-                {% for lieferant in filter_list_lieferant %}
-                <option value="{{ lieferant[0] }}" {{ lieferant[1] }}>{{ lieferant[0] }}</option>
-                {% endfor %}
-              </select>
-              <label for="kunde">Kunde:</label>
-              <select id="kunde" name="kunde">
-                {% for kunde in filter_list_kunde %}
-                <option value="{{ kunde[0] }}" {{ kunde[1] }}>{{ kunde[0] }}</option>
-                {% endfor %}
-              </select>
-              <input type="submit">
-              <hr/>
+              <h3 class="text-center">Filter</h3>
+                <div class="row">
+                    <div class="col-sm">
+                      <label for="jahr">Jahr:</label>
+                      <select id="jahr" name="jahr" class="form-control">
+                        {% for jahr in filter_list_jahr %}
+                        <option value="{{ jahr[0] }}" {{ jahr[1] }}>{{ jahr[0] }}</option>
+                        {% endfor %}
+                      </select><br>
+                    </div>
+                    <div class="col-sm">
+                      <label for="lieferant">Lieferant:</label>
+                      <select id="lieferant" name="lieferant" class="form-control">
+                        {% for lieferant in filter_list_lieferant %}
+                        <option value="{{ lieferant[0] }}" {{ lieferant[1] }}>{{ lieferant[0] }}</option>
+                        {% endfor %}
+                      </select><br>
+                    </div>
+                    <div class="col-sm">
+                      <label for="kunde">Kunde:</label>
+                      <select id="kunde" name="kunde" class="form-control">
+                        {% for kunde in filter_list_kunde %}
+                        <option value="{{ kunde[0] }}" {{ kunde[1] }}>{{ kunde[0] }}</option>
+                        {% endfor %}
+                      </select><br>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-secondary">
+                </div>
         </form>
     </div>
-    <div class="data">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Jahr</th>
-                <th>Lieferant</th>
-                <th>Kunde</th>
-                <th>Umsatz</th>
-            </tr>
+    <div class="shadow-lg mt-3 mb-3 ml-3 mr-3 pt-4 pb-4 pl-2 pr-2 bg-white">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Jahr</th>
+                    <th scope="col">Lieferant</th>
+                    <th scope="col">Kunde</th>
+                    <th scope="col">Umsatz</th>
+                </tr>
             {% for key, value in revenues.items() %}
-            <tr>
-                <td>{{ key }}</td>
-                <td>{{ value.jahr }}</td>
-                <td>{{ value.lieferant }}</td>
-                <td>{{ value.kunde }}</td>
-                <td>{{ "CHF {:,.2f}".format(value.umsatz).replace(",","'") }}</td>
-            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">{{ key }}</th>
+                    <td>{{ value.jahr }}</td>
+                    <td>{{ value.lieferant }}</td>
+                    <td>{{ value.kunde }}</td>
+                    <td>{{ "CHF {:,.2f}".format(value.umsatz).replace(",","'") }}</td>
+                </tr>
             {% endfor %}
+            </tbody>
         </table>
-
     </div>
+
+<!-- Footer -->
+{% include "footer.html" %}
 
 </body>
 </html>

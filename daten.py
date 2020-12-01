@@ -1,3 +1,4 @@
+from flask import flash
 import json
 import uuid
 
@@ -75,3 +76,15 @@ def saveNewEntryToFile(datei, list, name):
 
     with open(datei, "w") as open_file:
         json.dump(datei_inhalt, open_file)
+
+def umsatzloeschen(id):
+    with open('umsatz.json') as data_file:
+        data = json.load(data_file)
+
+    if id in data:
+        del data[id]
+    else:
+        flash('Diese ID ist nicht vorhanden', 'id')
+
+    with open('umsatz.json', 'w') as data_file:
+        data = json.dump(data, data_file)

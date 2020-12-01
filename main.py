@@ -64,7 +64,7 @@ def auflisten():
     kund_list = filter.eingabefilter(kunden, 'kunden')
 
     if request.method == 'POST':
-        if request.form['submit'] == 'submit_umsatz':
+        if request.form['submit'] == 'Umsatz eintragen':
             eingabe_umsatz = request.form['eingabe_umsatz']
             eingabe_jahr = request.form['year_list']
             eingabe_lieferant = request.form['lif_list']
@@ -72,13 +72,13 @@ def auflisten():
 
             daten.umsatzspeichern('umsatz.json', eingabe_lieferant, eingabe_kunde, int(eingabe_umsatz), eingabe_jahr)
 
-        if request.form['submit'] == 'submit_kundlief':
+        if request.form['submit'] == 'Eintrag erstellen':
             eingabe_newkunde = request.form['eingabe_newkund']
             eingabe_newlieferant = request.form['eingabe_newlief']
 
             if eingabe_newkunde:
                 if any(eingabe_newkunde in s for s in kund_list):
-                    flash(u'Dieser Kunde existiert bereits', 'error')
+                    flash('Dieser Kunde existiert bereits', 'kundeorlieferant')
                 else:
                     daten.saveNewEntryToFile('kunden.json', 'kunden', eingabe_newkunde)
                     kund_list.append(eingabe_newkunde)
@@ -86,21 +86,16 @@ def auflisten():
 
             if eingabe_newlieferant:
                 if any(eingabe_newlieferant in s for s in lif_list):
-                    flash(u'Dieser Lieferant existiert bereits', 'error')
+                    flash('Dieser Lieferant existiert bereits', 'kundeorlieferant')
                 else:
                     daten.saveNewEntryToFile('lieferanten.json', 'lieferanten', eingabe_newlieferant)
                     lif_list.append(eingabe_newlieferant)
-                    ßlif_list.sort()
+                    lif_list.sort()
 
-        if request.form['submit'] == 'submit_deleteumsatz':
+        if request.form['submit'] == 'Umsatz löschen':
             eingabe_id = request.form['eingabe_id']
 
-            if eingabe_id in revenues:
-                del revenues[eingabe_id]
-            else:
-                flash(u'Diese ID ist nicht vorhanden', 'error')
-
-            print(revenues)
+            daten.umsatzloeschen(eingabe_id)
 
     return render_template('dateneingabe.html', year_list=year_list, lif_list=lif_list, kund_list=kund_list)
 
