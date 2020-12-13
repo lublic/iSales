@@ -22,15 +22,16 @@ def getFilterList(nestedDict, filter, selected_Filter):
         i += 1
     return filterList
 
-
+# Funktion um die gefilterten Umsätze anzuzeigen
 def filter(revenues_filtered, filter, selected_filter):
     if selected_filter != "Alle":
         revenues_filtered = {key: value for (key, value) in revenues_filtered.items() if
                              selected_filter in value[filter]}
     return revenues_filtered
 
-
+# Funktion um die Jahre, Kunden und Lieferanten auszugeben
 def eingabefilter(e_liste, inlist):
+    # Liste für die Ausgabe
     eingabelist = []
     # Lade alle Items
     for v in e_liste.get(inlist):
